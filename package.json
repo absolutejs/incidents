@@ -1,0 +1,57 @@
+{
+  "name": "@absolutejs/incidents",
+  "version": "0.1.0",
+  "description": "Durable incident delivery workers with leases, retries, escalation preparation, and operator metrics.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Alex Kahn",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/absolutejs/incidents.git"
+  },
+  "homepage": "https://github.com/absolutejs/incidents",
+  "bugs": {
+    "url": "https://github.com/absolutejs/incidents/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "absolutejs": {
+    "manifestContract": 2
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./manifest": {
+      "types": "./dist/manifest.d.ts",
+      "import": "./dist/manifest.js"
+    },
+    "./manifest.json": "./dist/manifest.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "format": "prettier --write \"./**/*.{ts,json,md}\"",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "build": "rm -rf dist && bun build src/index.ts src/manifest.ts --outdir dist --target=bun --external @absolutejs/manifest --external @absolutejs/queue --external @sinclair/typebox && tsc -p tsconfig.build.json && absolute-manifest emit",
+    "check:package": "bun run format && bun run typecheck && bun run test && bun run build"
+  },
+  "dependencies": {
+    "@absolutejs/manifest": "0.3.0",
+    "@absolutejs/queue": "0.4.1",
+    "@sinclair/typebox": "0.34.52"
+  },
+  "devDependencies": {
+    "@types/bun": "1.3.14",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  }
+}
