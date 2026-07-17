@@ -1,6 +1,6 @@
 {
   "name": "@absolutejs/incidents",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Durable incident delivery workers with leases, retries, escalation preparation, and operator metrics.",
   "type": "module",
   "license": "MIT",

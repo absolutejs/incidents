@@ -46,6 +46,17 @@ export const createIncidentDeliveryWorker = <TPayload>({
   let running = false;
   let runs = 0;
 
+  const reportError = async (
+    error: unknown,
+    delivery?: LeasedDelivery<TPayload>,
+  ) => {
+    try {
+      await onError?.(error, delivery);
+    } catch {
+      // Error observers are diagnostics and cannot change delivery state.
+    }
+  };
+
   const processDelivery = async (delivery: LeasedDelivery<TPayload>) => {
     active += 1;
     const controller = new AbortController();
@@ -53,7 +64,11 @@ export const createIncidentDeliveryWorker = <TPayload>({
       await deliver(delivery, controller.signal);
       await store.complete(delivery, now());
       completed += 1;
-      await onComplete?.(delivery);
+      try {
+        await onComplete?.(delivery);
+      } catch (hookError) {
+        await reportError(hookError, delivery);
+      }
     } catch (error) {
       const message = errorMessage(error, maxErrorLength);
       const nextAttemptAt = now() + backoff(delivery.attempt);
@@ -65,11 +80,15 @@ export const createIncidentDeliveryWorker = <TPayload>({
           nextAttemptAt,
         });
         failed += 1;
-        await onFailed?.(delivery, message, nextAttemptAt);
+        try {
+          await onFailed?.(delivery, message, nextAttemptAt);
+        } catch (hookError) {
+          await reportError(hookError, delivery);
+        }
       } catch (storeError) {
-        await onError?.(storeError, delivery);
+        await reportError(storeError, delivery);
       }
-      await onError?.(error, delivery);
+      await reportError(error, delivery);
     } finally {
       active -= 1;
     }
@@ -95,7 +114,7 @@ export const createIncidentDeliveryWorker = <TPayload>({
 
       return deliveries.length;
     } catch (error) {
-      await onError?.(error);
+      await reportError(error);
 
       return 0;
     } finally {
@@ -114,7 +133,7 @@ export const createIncidentDeliveryWorker = <TPayload>({
       },
     ],
     onError: (error) => {
-      void onError?.(error);
+      void reportError(error);
     },
     tickMs: pollIntervalMs,
     wake: async () => {

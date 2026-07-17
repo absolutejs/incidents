@@ -80,6 +80,31 @@ describe("incident delivery worker", () => {
     await worker.dispose();
   });
 
+  test("does not retry completed work when an observer hook fails", async () => {
+    let failures = 0;
+    const pending = [delivery()];
+    const store: LeasedDeliveryStore<Payload> = {
+      claim: async () => pending.splice(0),
+      complete: async () => undefined,
+      fail: async () => {
+        failures += 1;
+      },
+    };
+    const worker = createIncidentDeliveryWorker({
+      deliver: async () => undefined,
+      onComplete: async () => {
+        throw new Error("Audit unavailable");
+      },
+      onError: async () => undefined,
+      store,
+    });
+
+    expect(await worker.runOnce()).toBe(1);
+    expect(failures).toBe(0);
+    expect(worker.metrics()).toMatchObject({ completed: 1, failed: 0 });
+    await worker.dispose();
+  });
+
   test("single-flights overlapping runs and honors drain", async () => {
     let release: (() => void) | undefined;
     const gate = new Promise<void>((resolve) => {
