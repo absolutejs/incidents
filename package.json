@@ -1,6 +1,6 @@
 {
   "name": "@absolutejs/incidents",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Durable incident delivery workers with leases, retries, escalation preparation, and operator metrics.",
   "type": "module",
   "license": "MIT",
@@ -45,8 +45,8 @@
     "check:package": "bun run format && bun run typecheck && bun run test && bun run build"
   },
   "dependencies": {
-    "@absolutejs/manifest": "0.3.0",
-    "@absolutejs/queue": "0.4.1",
+    "@absolutejs/manifest": "0.7.2",
+    "@absolutejs/queue": "0.7.1",
     "@sinclair/typebox": "0.34.52"
   },
   "devDependencies": {
