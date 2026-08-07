@@ -6,7 +6,7 @@
       "name": "@absolutejs/incidents",
       "dependencies": {
         "@absolutejs/manifest": "0.7.2",
-        "@absolutejs/queue": "0.7.1",
+        "@absolutejs/queue": "0.7.2",
         "@sinclair/typebox": "0.34.52",
       },
       "devDependencies": {
@@ -17,11 +17,13 @@
     },
   },
   "packages": {
+    "@absolutejs/handoff": ["@absolutejs/handoff@0.1.0", "", { "dependencies": { "@absolutejs/manifest": "0.7.2", "@sinclair/typebox": "0.34.52" } }, "sha512-P9Wr2oyYBcj7mriCV4h9zRlLGijee/7DW8USVkl/m4ovql7zpITy547jy6j8+HC5v5Ocs+TVcMYmrROEEBupNg=="],
+
     "@absolutejs/manifest": ["@absolutejs/manifest@0.7.2", "", { "peerDependencies": { "@sinclair/typebox": ">=0.34.0 <0.35.0" }, "bin": { "absolute-manifest": "dist/cli.js" } }, "sha512-NSVzC4yHbH+n+WCNdWYrpbc+3k5rOfO4X85Ku9VCP8teRaa2VEibp29Cyvg9rQARUGaQjGGTz+l+APqM0+odxg=="],
 
-    "@absolutejs/queue": ["@absolutejs/queue@0.7.1", "", { "dependencies": { "@absolutejs/manifest": "^0.7.2", "@absolutejs/telemetry": "^0.2.0", "@sinclair/typebox": "^0.34.0" }, "peerDependencies": { "elysia": ">=1.4.29 <2" } }, "sha512-6+oNorKYZnWdSe63G7FqAlK2c2YyMTGCXoTCb04V4ESljS6efM+4tqCo8UB0L+pf1PTkQDPWxQhOG3xRHI/eKw=="],
+    "@absolutejs/queue": ["@absolutejs/queue@0.7.2", "", { "dependencies": { "@absolutejs/manifest": "^0.7.2", "@absolutejs/telemetry": "^0.3.0", "@sinclair/typebox": "^0.34.0" }, "peerDependencies": { "elysia": ">=1.4.29 <2" } }, "sha512-tNj5jigjiUcGWd9V4R3Ji2WrFJUaBol5HRssUvtXDGgxKgMYnKxRxs4EeMltRqV9iXP8YBxcSpKaYAlJc7j8Iw=="],
 
-    "@absolutejs/telemetry": ["@absolutejs/telemetry@0.2.0", "", {}, "sha512-4Xh9lShoa1QrSvzRRjIR/5h5pqed60Wc6SLliCkoGjZd8XOtQM3tP4aKTA3LgQ22tUDmxpcZitRzuDU9dMX9Fw=="],
+    "@absolutejs/telemetry": ["@absolutejs/telemetry@0.3.0", "", { "dependencies": { "@absolutejs/handoff": "0.1.0" }, "peerDependencies": { "drizzle-orm": ">=1.0.0-rc.4 <2" }, "optionalPeers": ["drizzle-orm"] }, "sha512-BPpx1Wl0asQh/vEX32dS3R6SfXZuaxxU/aFkHHtW1kSKYx0X32aYU6KxYICfDEOeScFDKn8AdkWojVEzVZG+Kw=="],
 
     "@borewit/text-codec": ["@borewit/text-codec@0.2.2", "", {}, "sha512-DDaRehssg1aNrH4+2hnj1B7vnUGEjU6OIlyRdkMd0aUdIUvKXrJfXsy8LVtXAy7DRvYVluWbMspsRhz2lcW0mQ=="],
 

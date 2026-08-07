@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3 — 2026-08-07
+
+- Uses Queue 0.7.2 so incident delivery shares the Telemetry 0.3 runtime.
+
 ## 0.1.1
 
 - Isolate completion, failure, and error-observer hooks so an observability
