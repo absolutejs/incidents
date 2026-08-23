@@ -1,6 +1,6 @@
 {
   "name": "@absolutejs/incidents",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Durable incident delivery workers with leases, retries, escalation preparation, and operator metrics.",
   "type": "module",
   "license": "MIT",
@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@absolutejs/manifest": "0.9.0",
-    "@absolutejs/queue": "0.8.0",
+    "@absolutejs/queue": "0.8.1",
     "@sinclair/typebox": "0.34.52"
   },
   "devDependencies": {
